@@ -5,9 +5,11 @@ class ObjectShapes{
   PlyObject pObj, qObj;
   float offset;
   String[] labelText;
+  String infoText;
   PVector[] boxCorners = new PVector[8];
   PVector[] labelCorners = new PVector[4];
   boolean labelSelected = false;
+  boolean infoVisible = false;
   float labelWidth  = .04;
   float labelHeight = .015;
   ObjectShapes(int i){
@@ -31,6 +33,7 @@ class ObjectShapes{
     labelText = new String[2];
     labelText[0] = objInfo[i].getString("label0");
     labelText[1] = objInfo[i].getString("label1");    
+    infoText = objInfo[i].getString("info");    
   }
   
   PVector[] getScreenBox(){
@@ -128,5 +131,23 @@ class ObjectShapes{
     fill(255);
     image(infoIcon, 15.5, -6, 3.5, 3.5); 
     popMatrix();
+  }
+  
+  void drawInfo(){
+    if(infoVisible){
+      pushMatrix();
+      translate(0, 2.0*offset + 0.04, 0);
+      rotateX(PI);
+      fill(255);
+      box(.07,.05,.002);
+      translate(0,0,-0.0011);
+      fill(0);
+      textAlign(CENTER,CENTER);
+      scale(0.001);
+      textSize(4);
+      text(infoText,-33,-24,66,48);
+      fill(255);
+      popMatrix();
+    }
   }
 }

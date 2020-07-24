@@ -76,7 +76,7 @@ void draw() {
 
     if (mousePressed && !pMouseState) {
       onMouseDown();
-      if (selectedIndex >= 0 && alignMode == alignModes.FREE) objIndex = selectedIndex;
+      if (selectedIndex >= 0 && alignMode == alignModes.FREE && !isSelectionLabel) objIndex = selectedIndex;
     }
     pMouseState = mousePressed;
 
@@ -95,6 +95,7 @@ void draw() {
     }
     if (!mousePressed && isSelectionLabel) {
       println("Label clicked");
+      objShapes[selectedIndex].infoVisible = !objShapes[selectedIndex].infoVisible;
       objShapes[selectedIndex].labelSelected = false;
       isSelectionLabel = false;
     }
@@ -106,6 +107,7 @@ void draw() {
         //        translate(getPlacement(n), objShapes[n].offset, 0);  // Lift object so base is at surface-level.
         translate(T.x, plynthHeight+0.001, T.z);
         objShapes[n].drawPlynth();
+        objShapes[n].drawInfo();
         translate(0, T.y, 0);
         rotateY(angle);
         if (objMode ==objModes.WIRETEX || objMode == objModes.FULL)
