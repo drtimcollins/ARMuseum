@@ -3,23 +3,27 @@
 "pointFile": "shabti02",
 "offset": 67,
 "label0": "Shabti",
-"label1": "49-8-33"
+"label1": "49-8-33",
+"info": "An Egyptian ‘shabti’ statue; shabtis were special servant statues placed in tombs. The statue in the app is holding agricultural tools for farm work. It is over 2,500 years old and was once owned by Florence Nightingale who spent several months in Egypt in 1849-50. The hieroglyphic script on the statue is a magical spell to bring it to life and set it to work."
 },{
 "meshFile": "Telloh10",
 "pointFile": "Telloh02",
 "offset": 48,
 "label0": "Telloh ",
-"label1": "56-24-247"
+"label1": "56-24-247",
+"info": "A cuneiform tablet recording disbursements made to several individuals. Written in Akkadian, it lists foods such as cereals, fruits, meats presumed to be for consumption by the entourage of king Sarkalisarri on the occasion of his journey from Akkad to Sumer."
 },{
 "meshFile": "49_47_41a_10",
 "pointFile": "49_47_41a_02",
 "offset": 25,
 "label0": "Envelope",
-"label1": "49-47-41a"
+"label1": "49-47-41a",
+"info": "A cuneiform envelope that originally encased a legal document recording a loan of silver. The text on the envelope is a copy of the contents accompanied by the seals of two witnesses. In the event of a later dispute, the evelope could be opened to confirm the original document."
 },{
 "meshFile": "49_47_41b_10",
 "pointFile": "49_47_41b_02",
 "offset": 25,
 "label0": "Contents",
-"label1": "49-47-41b"
+"label1": "49-47-41b",
+"info": "A cuneiform tablet documenting the terms of a loan of silver for five years. It was encased in an envelope with the same legal text repeated on it and the seals of two witnesses."
 }]
