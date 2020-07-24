@@ -1,0 +1,25 @@
+[{
+"meshFile": "shabti10",
+"pointFile": "shabti02",
+"offset": 67,
+"label0": "Shabti",
+"label1": "49-8-33"
+},{
+"meshFile": "Telloh10",
+"pointFile": "Telloh02",
+"offset": 48,
+"label0": "Telloh ",
+"label1": "56-24-247"
+},{
+"meshFile": "49_47_41a_10",
+"pointFile": "49_47_41a_02",
+"offset": 25,
+"label0": "Envelope",
+"label1": "49-47-41a"
+},{
+"meshFile": "49_47_41b_10",
+"pointFile": "49_47_41b_02",
+"offset": 25,
+"label0": "Contents",
+"label1": "49-47-41b"
+}]
