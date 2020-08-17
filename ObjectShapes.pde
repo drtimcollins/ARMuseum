@@ -136,8 +136,11 @@ class ObjectShapes{
   void drawInfo(){
     if(infoVisible){
       pushMatrix();
-      translate(0, 2.0*offset + 0.04, 0);
-      rotateX(PI);
+//      translate(0, 2.0*offset + 0.04, 0);
+      translate(0, -plynthHeight, 0.04+plynthBase);
+//      rotateX(PI);
+      rotateX(PI/2);
+      
       fill(255);
       box(.07,.05,.002);
       translate(0,0,-0.0011);
