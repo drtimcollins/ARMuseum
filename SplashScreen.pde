@@ -8,7 +8,7 @@ class SplashScreen {
 
     controls[0] = new Title(50, 100, displayWidth-100, 120,"THE AUGMENTED REALITY MUSEUM APP");
     controls[1] = new Label(50, 650, displayWidth-100, 100,"The Augmented Reality Museum App is part of");
-    controls[2] = new Link(50, 750, displayWidth-100, 100,"THE VIRTUAL CUNEIFORM RECONSTRUCTION PROJECT","http://virtualcuneiform.org/");    
+    controls[2] = new Link(50, 750, displayWidth-100, 100,"THE VIRTUAL CUNEIFORM RECONSTRUCTION PROJECT","http://virtualcuneiform.org/ARMuseum.html");    
     controls[3] = new Button((displayWidth-500)/2, 400, 500, 120, "Start AR Museum");
     controls[4] = new Label(50, 1000, displayWidth-100, (displayWidth-100)/2.11,loadImage("partners.png"));
     
