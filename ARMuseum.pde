@@ -24,7 +24,7 @@ float plynthSize   = .025;
 float plynthHeight = .020;
 float plynthBase   = .030;
 
-enum GuiModes {SPLASHSCREEN, ARINTERFACE};
+enum GuiModes {SPLASHSCREEN, HELPSCREEN, ARINTERFACE};
 enum objModes {POINTCLOUD, WIREFRAME, WIRETEX, FULL};
 enum alignModes {FREE, ALIGNED, OVERLAP};
 
@@ -34,6 +34,7 @@ alignModes alignMode = alignModes.FREE;
 
 SplashScreen splash;    // The spashscreen 2D display.
 ARButtonBar bb;         // 2D Buttons on main AR interface.
+HelpScreen helper;
 
 void setup() {
   fullScreen(AR);
@@ -62,6 +63,7 @@ void setup() {
   init2D();
   splash = new SplashScreen();
   bb = new ARButtonBar();
+  helper = new HelpScreen();
 }
 
 void draw() {
@@ -69,6 +71,9 @@ void draw() {
 
   if (guiMode == GuiModes.SPLASHSCREEN) {
     splash.draw();
+  } else if(guiMode == GuiModes.HELPSCREEN){
+    helper.draw();
+    
   } else {
     lights();
 
@@ -110,9 +115,9 @@ void draw() {
         objShapes[n].drawInfo();
         translate(0, T.y, 0);
         rotateY(angle);
-        if (objMode ==objModes.WIRETEX || objMode == objModes.FULL)
+        if (objMode == objModes.WIRETEX || objMode == objModes.FULL)
           shape(objShapes[n].arObj);
-        if (objMode != objModes.FULL)
+        if (objMode == objModes.POINTCLOUD)
           shape(objShapes[n].pcObj);
         if (objMode == objModes.WIRETEX || objMode == objModes.WIREFRAME)
           shape(objShapes[n].wfObj);

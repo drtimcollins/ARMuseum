@@ -13,6 +13,24 @@ class Control {
   }
 }
 
+class HelpLabel extends Control {
+  String labelText;
+  HelpLabel(float x, float y, float w, float h, String label) {
+    super(x, y, w, h);
+    labelText = label;
+  }
+  void draw() {
+    strokeWeight(2);
+    textSize(40);
+    fill(255,255,240);
+    stroke(0);
+    rect(p.x, p.y, s.x, s.y, 20);
+    textAlign(CENTER, CENTER);
+    fill(0);
+    text(labelText, p.x+s.x/2, p.y+s.y/2);
+  }
+}
+
 class Button extends Control {
   String labelText;
   PImage im;
