@@ -111,8 +111,10 @@ void draw() {
         PVector T = getPlacement(n);
         //        translate(getPlacement(n), objShapes[n].offset, 0);  // Lift object so base is at surface-level.
         translate(T.x, plynthHeight+0.001, T.z);
-        objShapes[n].drawPlynth();
-        objShapes[n].drawInfo();
+        if(alignMode != alignModes.OVERLAP || n != 3){ // BODGE: Item 3 is the envelope contents
+          objShapes[n].drawPlynth();
+          objShapes[n].drawInfo();
+        }
         translate(0, T.y, 0);
         rotateY(angle);
         if (objMode == objModes.WIRETEX || objMode == objModes.FULL)
@@ -181,6 +183,15 @@ void onMouseDown() {
         bestn = n;
         isLabel = true;
       }
+      if(objShapes[n].infoVisible){
+        ht = objShapes[n].infoHitTest(mouseX, mouseY);
+        if (ht > 0 && ht < bestZ) {
+          bestZ = ht;
+          bestn = n;
+          isLabel = true;
+        }        
+      }
+
 
       translate(0, T.y, 0);
       rotateY(angle);

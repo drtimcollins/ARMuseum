@@ -8,10 +8,11 @@ class ObjectShapes{
   String infoText;
   PVector[] boxCorners = new PVector[8];
   PVector[] labelCorners = new PVector[4];
+  PVector[] infoCorners = new PVector[4];
   boolean labelSelected = false;
   boolean infoVisible = false;
-  float labelWidth  = .04;
-  float labelHeight = .015;
+  float labelWidth  = .04, labelHeight = .015;
+  float infoWidth = .07, infoHeight = .05;
   ObjectShapes(int i){
     pObj = new PlyObject(objInfo[i].getString("meshFile"));
     qObj = new PlyObject(objInfo[i].getString("pointFile"));
@@ -27,7 +28,8 @@ class ObjectShapes{
       println(boxCorners[n]);
     }
     for(int n = 0; n < 4; n++){
-      labelCorners[n] = new PVector(labelWidth * (float(n&1)-0.5), labelHeight * (float((n>>1)&1)-0.5), 0);
+      labelCorners[n] = new PVector(labelWidth * ((n==0 || n==3)?-0.5:0.5), labelHeight * (float((n>>1)&1)-0.5), 0);
+      infoCorners[n] = new PVector(infoWidth * ((n==0 || n==3)?-0.5:0.5), infoHeight * (float((n>>1)&1)-0.5), 0);
     }
     
     labelText = new String[2];
@@ -82,6 +84,13 @@ class ObjectShapes{
     return b;
   }
   
+  PVector[] getScreenCorners(PVector[] c){
+    PVector[] b = new PVector[4];
+    for(int n = 0; n < 4; n++)
+      b[n] = new PVector(screenX(c[n].x, c[n].y, 0), screenY(c[n].x, c[n].y, 0), screenZ(c[n].x, c[n].y, 0));  
+    return b;
+  }
+  
   float hitTest(float x, float y){
     PVector[] b = getScreenBox();
     if(x > b[1].x && x < b[0].x && y > b[1].y && y < b[0].y)
@@ -90,9 +99,33 @@ class ObjectShapes{
       return -1;
   }
   
-  float labelHitTest(float x, float y){
+/*  float labelHitTest(float x, float y){
     PVector[] b = getLabelBox();
     if(x > b[1].x && x < b[0].x && y > b[1].y && y < b[0].y)
+      return b[1].z;
+    else
+      return -1;
+  }*/  
+  float labelHitTest(float x, float y){
+    pushMatrix();
+    translate(0,0,plynthSize);
+    rotateX(PI-asin((plynthBase-plynthSize)/plynthHeight));
+    translate(0,plynthHeight/2,0);    
+    PVector[] b = getScreenCorners(labelCorners);
+    popMatrix();    
+    if(isInQuad(new PVector(x,y), b))
+      return b[1].z;
+    else
+      return -1;
+  }  
+
+  float infoHitTest(float x, float y){
+    pushMatrix();
+    translate(0, -plynthHeight, 0.04+plynthBase);
+    rotateX(PI/2);
+    PVector[] b = getScreenCorners(infoCorners);
+    popMatrix();    
+    if(isInQuad(new PVector(x,y), b))
       return b[1].z;
     else
       return -1;
@@ -117,7 +150,6 @@ class ObjectShapes{
     pushMatrix();
     translate(0,0,plynthSize);
     rotateX(PI-asin((plynthBase-plynthSize)/plynthHeight));
-  //  rotateY(PI);
     translate(0,plynthHeight/2,0);
     fill(labelSelected ? #1EAEDB : 255);
     box(labelWidth,labelHeight,.002);
@@ -136,13 +168,11 @@ class ObjectShapes{
   void drawInfo(){
     if(infoVisible){
       pushMatrix();
-//      translate(0, 2.0*offset + 0.04, 0);
       translate(0, -plynthHeight, 0.04+plynthBase);
-//      rotateX(PI);
       rotateX(PI/2);
       
       fill(255);
-      box(.07,.05,.002);
+      box(infoWidth,infoHeight,.002);
       translate(0,0,-0.0011);
       fill(0);
       textAlign(CENTER,CENTER);
@@ -153,4 +183,15 @@ class ObjectShapes{
       popMatrix();
     }
   }
+}
+
+boolean isInQuad(PVector p, PVector[] v){
+  int[] d = new int[4];
+  for(int n = 0; n < 4; n++)
+    d[n] = signFn(p, v[n], v[(n+1)%4]);
+  return (d[0] == d[1]) && (d[1] == d[2]) && (d[2] == d[3]);
+}
+
+int signFn(PVector p1,PVector p2,PVector p3){
+  return ((p1.x-p3.x)*(p2.y-p3.y)-(p2.x-p3.x)*(p1.y-p3.y) > 0) ? 1 : -1;
 }

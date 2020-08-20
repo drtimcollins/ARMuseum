@@ -21,12 +21,12 @@ class HelpLabel extends Control {
   }
   void draw() {
     strokeWeight(2);
-    textSize(40);
-    fill(255,255,240);
+    textSize(30);
+    fill(255,255,245);
     stroke(0);
     rect(p.x, p.y, s.x, s.y, 20);
     textAlign(CENTER, CENTER);
-    fill(0);
+    fill(#007cbf);
     text(labelText, p.x+s.x/2, p.y+s.y/2);
   }
 }
