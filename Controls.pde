@@ -15,11 +15,15 @@ class Control {
 
 class HelpLabel extends Control {
   String labelText;
+  boolean isPressed = false;
+  boolean isClicked = false;
   HelpLabel(float x, float y, float w, float h, String label) {
     super(x, y, w, h);
     labelText = label;
   }
   void draw() {
+    isClicked = (!mousePressed && isPressed);    // True only if the mouse has just been released from the button.
+    isPressed = (mousePressed && hitTest());     // True is the mouse is pressed and over the button. 
     strokeWeight(2);
     textSize(30);
     fill(255,255,245);
