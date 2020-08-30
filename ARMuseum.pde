@@ -24,9 +24,15 @@ float plynthSize   = .025;
 float plynthHeight = .020;
 float plynthBase   = .030;
 
-enum GuiModes {SPLASHSCREEN, HELPSCREEN, ARINTERFACE};
-enum objModes {POINTCLOUD, WIREFRAME, WIRETEX, FULL};
-enum alignModes {FREE, ALIGNED, OVERLAP};
+enum GuiModes {
+  SPLASHSCREEN, HELPSCREEN, ARINTERFACE
+};
+enum objModes {
+  POINTCLOUD, WIREFRAME, WIRETEX, FULL
+};
+enum alignModes {
+  FREE, ALIGNED, OVERLAP
+};
 
 GuiModes   guiMode   = GuiModes.SPLASHSCREEN;
 objModes   objMode   = objModes.FULL;
@@ -71,47 +77,47 @@ void draw() {
 
   if (guiMode == GuiModes.SPLASHSCREEN) {
     splash.draw();
-  } else if(guiMode == GuiModes.HELPSCREEN){
-    helper.draw();
-    
   } else {
     lights();
 
+
+
     if (alignMode != alignModes.FREE) objIndex = 0; // All objects are placed relative to a single anchor
 
-    if (mousePressed && !pMouseState) {
-      onMouseDown();
-      if (selectedIndex >= 0 && alignMode == alignModes.FREE && !isSelectionLabel) objIndex = selectedIndex;
-    }
-    pMouseState = mousePressed;
+    if (guiMode == GuiModes.ARINTERFACE) {
+      if (mousePressed && !pMouseState) {
+        onMouseDown();
+        if (selectedIndex >= 0 && alignMode == alignModes.FREE && !isSelectionLabel) objIndex = selectedIndex;
+      }
+      pMouseState = mousePressed;
 
-    if (mousePressed && !bb.hitTest() && !isSelectionLabel) {
-      // Create new anchor at the current touch point
-      if (anchor[objIndex] != null) anchor[objIndex].dispose();
-      ARTrackable hit = tracker.get(mouseX, mouseY);
-      if (hit != null) {
-        anchor[objIndex] = new ARAnchor(hit);
-        justPlaced = true;
-      } else anchor[objIndex] = null;
+      if (mousePressed && !bb.hitTest() && !isSelectionLabel) {
+        // Create new anchor at the current touch point
+        if (anchor[objIndex] != null) anchor[objIndex].dispose();
+        ARTrackable hit = tracker.get(mouseX, mouseY);
+        if (hit != null) {
+          anchor[objIndex] = new ARAnchor(hit);
+          justPlaced = true;
+        } else anchor[objIndex] = null;
+      }
+      if (!mousePressed && justPlaced) {
+        justPlaced = false;
+        objIndex = ((objIndex+1) % Nobj);
+      }
+      if (!mousePressed && isSelectionLabel) {
+        println("Label clicked");
+        objShapes[selectedIndex].infoVisible = !objShapes[selectedIndex].infoVisible;
+        objShapes[selectedIndex].labelSelected = false;
+        isSelectionLabel = false;
+      }
     }
-    if (!mousePressed && justPlaced) {
-      justPlaced = false;
-      objIndex = ((objIndex+1) % Nobj);
-    }
-    if (!mousePressed && isSelectionLabel) {
-      println("Label clicked");
-      objShapes[selectedIndex].infoVisible = !objShapes[selectedIndex].infoVisible;
-      objShapes[selectedIndex].labelSelected = false;
-      isSelectionLabel = false;
-    }
-
     for (int n = 0; n < Nobj; n++) {
       if (getAnchor(n) != null) {
         getAnchor(n).attach();        
         PVector T = getPlacement(n);
         //        translate(getPlacement(n), objShapes[n].offset, 0);  // Lift object so base is at surface-level.
         translate(T.x, plynthHeight+0.001, T.z);
-        if(alignMode != alignModes.OVERLAP || n != 3){ // BODGE: Item 3 is the envelope contents
+        if (alignMode != alignModes.OVERLAP || n != 3) { // BODGE: Item 3 is the envelope contents
           objShapes[n].drawPlynth();
           objShapes[n].drawInfo();
         }
@@ -150,7 +156,11 @@ void draw() {
       }
     }
     fill(255);
-    bb.draw();
+
+    if (guiMode == GuiModes.HELPSCREEN)
+      helper.draw();    
+    else
+      bb.draw();
 
     angle += rot;
   }
@@ -183,13 +193,13 @@ void onMouseDown() {
         bestn = n;
         isLabel = true;
       }
-      if(objShapes[n].infoVisible){
+      if (objShapes[n].infoVisible) {
         ht = objShapes[n].infoHitTest(mouseX, mouseY);
         if (ht > 0 && ht < bestZ) {
           bestZ = ht;
           bestn = n;
           isLabel = true;
-        }        
+        }
       }
 
 
