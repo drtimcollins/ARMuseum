@@ -161,7 +161,8 @@ class ObjectShapes{
     text(labelText[0],0,-3);
     text(labelText[1],0,3);
     fill(255);
-    image(infoIcon, 14.0, -6, 5, 5); 
+    //image(infoIcon, 14.0, -6, 5, 5); 
+    image(infoIcon, 13.0, -6, 6, 6); 
     popMatrix();
   }
   

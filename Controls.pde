@@ -17,6 +17,7 @@ class HelpLabel extends Control {
   String labelText;
   boolean isPressed = false;
   boolean isClicked = false;
+  boolean isMain = false;
   HelpLabel(float x, float y, float w, float h, String label) {
     super(x, y, w, h);
     labelText = label;
@@ -25,12 +26,12 @@ class HelpLabel extends Control {
     isClicked = (!mousePressed && isPressed);    // True only if the mouse has just been released from the button.
     isPressed = (mousePressed && hitTest());     // True is the mouse is pressed and over the button. 
     strokeWeight(2);
-    textSize(30);
-    fill(255,255,245);
+    textSize(isMain?35:30);
+    fill(isMain?#1EAEDB:#FFFFF6);
     stroke(0);
     rect(p.x, p.y, s.x, s.y, 20);
     textAlign(CENTER, CENTER);
-    fill(#007cbf);
+    fill(isMain?#FFFFF6:#007cbf);
     text(labelText, p.x+s.x/2, p.y+s.y/2);
   }
 }
