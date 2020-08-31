@@ -6,7 +6,8 @@ class Control {
     p = new PVector(x, y);
     s = new PVector(w, h);
   }
-  void draw() {}
+  void draw() {
+  }
   boolean hitTest() {
     // Return true if the mouse position is within 15 pixels of the control border
     return (mouseX > p.x-15 && mouseX < p.x+s.x+15 && mouseY > p.y-15 && mouseY < p.y+s.y+15);
@@ -28,7 +29,7 @@ class HelpLabel extends Control {
     strokeWeight(2);
     textSize(isMain?35:30);
     fill(isMain?#1EAEDB:#FFFFF6);
-    stroke(0);
+    stroke(255);
     rect(p.x, p.y, s.x, s.y, 20);
     textAlign(CENTER, CENTER);
     fill(isMain?#FFFFF6:#007cbf);
@@ -62,12 +63,16 @@ class Button extends Control {
     } else {
       strokeWeight(4);
       textSize(40);
-      fill(isPressed ? 255 : 220);
-      stroke(0);
+
+      //fill(isPressed ? 255 : 220);
+      fill(isPressed ? #40D0FF : #1EAEDB);
+      stroke(255);
       rect(p.x, p.y, s.x, s.y, 20);
       textAlign(CENTER, CENTER);
-      fill(0);
+      fill(255);
+      textFont(boldFont, 45);
       text(labelText, p.x+s.x/2, p.y+s.y/2);
+      textFont(normalFont, 40);
     }
   }
 }
@@ -82,7 +87,7 @@ class Link extends Button {
     isClicked = (!mousePressed && isPressed);    // True only if the mouse has just been released from the button.
     isPressed = (mousePressed && hitTest());     // True is the mouse is pressed and over the button. 
     fill(isPressed ? #FF0000 : #1EAEDB);
-    textSize(40);
+    textSize(35);
     textAlign(CENTER, CENTER);
     //text(labelText, p.x+s.x/2, p.y+s.y/2);
     text(labelText, p.x, p.y, s.x, s.y);
