@@ -21,6 +21,7 @@ class ARButtonBar {
   }
   void draw() {
     start2D();
+    noLights();
     b.draw();
     for (int n = 0; n < 4; n++)
       vb[n].draw();

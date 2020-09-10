@@ -79,6 +79,8 @@ class Button extends Control {
 
 class Link extends Button {
   String url;
+  int size = 35;
+  boolean hasBG = false;
   Link(float x, float y, float w, float h, String text, String href) {
     super(x, y, w, h, text);
     url = href;
@@ -86,11 +88,21 @@ class Link extends Button {
   void draw() {
     isClicked = (!mousePressed && isPressed);    // True only if the mouse has just been released from the button.
     isPressed = (mousePressed && hitTest());     // True is the mouse is pressed and over the button. 
-    fill(isPressed ? #FF0000 : #1EAEDB);
-    textSize(35);
+
+    if(hasBG){
+      fill(0xffFFFFF6);
+//      noStroke();
+      rect(p.x, p.y, s.x, s.y, 20);
+    }
+    
+    fill(isPressed ? 0xffFF0000 : 0xff1EAEDB);    
+    textSize(size);
     textAlign(CENTER, CENTER);
     //text(labelText, p.x+s.x/2, p.y+s.y/2);
-    text(labelText, p.x, p.y, s.x, s.y);
+    if(hasBG)
+      text(labelText, p.x+30, p.y, s.x-60, s.y);
+    else
+      text(labelText, p.x, p.y, s.x, s.y);
     if (isClicked) link(url);
   }
 }

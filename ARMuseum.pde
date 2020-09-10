@@ -19,6 +19,8 @@ int selectedIndex = -1;
 boolean isSelectionLabel;
 PImage infoIcon;
 PFont boldFont, normalFont;
+String feedbackRequest = "We'd love to know your opinions and ideas about our proof-of-concept app. Please tap here to leave feedback.";
+String feedbackURL = "https://docs.google.com/forms/d/e/1FAIpQLSdmvmLtS2dYXpf27POhjmH16BvwFfPZzhIYcKu73N2TnBlgeA/viewform?usp=sf_link";
 
 float plynthSize   = .025;
 float plynthHeight = .020;
@@ -79,9 +81,6 @@ void draw() {
     splash.draw();
   } else {
     lights();
-
-
-
     if (alignMode != alignModes.FREE) objIndex = 0; // All objects are placed relative to a single anchor
 
     if (guiMode == GuiModes.ARINTERFACE) {

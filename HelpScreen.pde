@@ -2,6 +2,7 @@ class HelpScreen {
   HelpLabel[] labels;
   boolean isPressed = false;
   boolean isClicked = false;
+  Link fb;
 
   String[] helpText = {"Surface grid (on/off)", "Help (open/close)", "Reconstruct Exhibits", "Arrange Exhibits", "Point cloud", "Wireframe", "Wireframe + Texture", "Full Texture", "Rotate exhibits"};
   HelpScreen() {
@@ -13,11 +14,14 @@ class HelpScreen {
     for (int n = 0; n < 5; n++) {
       labels[n+4] = new HelpLabel(180+offsets[n+4], dispHeight-10-100-70-80 - 80*(n==4?n-1:n), displayWidth-(n==2 ? 360 : 440), 60, helpText[n+4]);
     }
-    labels[9] = new HelpLabel(40, dispHeight/2 - 60, displayWidth-80, 120, "The AR Museum App (version 0.9.1)");
+    labels[9] = new HelpLabel(20, dispHeight/2 - 120, displayWidth-40, 100, "The AR Museum App (version 0.9.1)");
     labels[9].isMain = true;
+    fb = new Link(20, dispHeight/2+10, displayWidth-40, 120, feedbackRequest, feedbackURL);
+    fb.size = 30; fb.hasBG = true;
   }
 
   void draw() {  
+    noLights();
     isClicked = (!mousePressed && isPressed);    // True only if the mouse has just been released
     isPressed = mousePressed;                 
 
@@ -26,6 +30,7 @@ class HelpScreen {
     for (int n = 0; n < labels.length; n++) {
       labels[n].draw();
     }
+    fb.draw();
     noFill();
 
     int shorten = -10;
